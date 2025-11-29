@@ -1,0 +1,183 @@
+body {
+    color: white !important;
+    font-family: 'Exo 2', sans-serif;
+    user-select: none;
+}
+
+
+
+h1, h2, h3, h4, h5, h6{
+    font-family: "Almendra";
+    text-align: center;
+}
+
+div.wide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#topbar {
+    border-bottom: 2px solid white;
+}
+
+#sidebar {
+    border-right: 2px solid white;
+}
+
+#leaderboard span {
+    font-size: 15pt;
+}
+
+#minigame_cover, #game_over {
+    height: 100%;
+    width: 100%;
+    border: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#door {
+    width: 75%;
+    height: 75%;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+}
+#door:hover {
+    transform: scale(1.1);
+    backdrop-filter: blur(20px);
+}
+
+#door.opened {
+    transform: rotateY(90deg);
+}
+
+#minigame {
+    transition: transform 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+    transform: rotateY(-90deg);
+    width: 75%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#minigame.hidden {
+    display: none;
+    transform: rotateY(-90deg);
+}
+#minigame p, #result p {
+    width: 90%;
+    text-align: center;
+    font-size: large;
+}
+
+#door_label {
+    margin: 0;
+    text-align: center;
+    font-size: 2000%;
+}
+
+#minigame img {
+    height: 5vh;
+    width: auto;
+    image-rendering: pixelated;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    transition: transform 0.2s ease-in-out;
+}
+#minigame *.option:hover {
+    transform: scale(1.2);
+}
+#minigame *.option.selected {
+    transform: scale(1.2);
+}
+#minigame *.option.selected:hover {
+    transform: scale(1.1);
+}
+
+#result {
+    transition: transform 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
+    transform: rotateY(-90deg);
+    width: 75%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#result.hidden {
+    display: none;
+    transform: rotateY(-90deg);
+}
+
+select {
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+#game_over {
+    visibility: hidden;
+}
+
+button {
+    align-self: center;
+    margin-top: 2vh;
+    cursor: pointer;
+    background-color: #00000055;
+    padding: 1vw;
+    padding-left: 3vw;
+    padding-right: 3vw;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    font-family: "Almendra", serif;
+    transition: transform 0.2s ease-in-out;
+    outline: 0;
+}
+button:hover {
+    transform: scale(1.2);
+}
+button:active {
+    transform: scale(0.9);
+}
+
+input {
+    text-align: center;
+    margin-top: 2vh;
+    background-color: #00000055;
+    padding: 0.5vw;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    font-family: "Exo 2", serif;
+    transition: transform 0.2s ease-in-out;
+    outline: 0;
+}
+
+select {
+    text-align: left !important;
+    margin-top: 2vh;
+    background-color: #00000055;
+    padding: 0.5vw;
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    border: 0;
+    border-radius: 10px;
+    color: white;
+    font-family: "Exo 2", serif;
+    transition: transform 0.2s ease-in-out;
+    outline: 0;
+}
+select.optionselector {
+    text-align: left !important;
+}

@@ -1,0 +1,118 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+}
+
+div.x {
+    display: flex;
+    flex-direction: row;
+}
+
+div.c {
+    align-items: center;
+    justify-content: center;
+}
+
+div.blurred {
+    backdrop-filter: blur(10px);
+}
+
+div.tinted {
+    background-color: #00000055;
+}
+
+div.w9 {
+    width: 90%;
+}
+
+div.h9 {
+    height: 90%;
+}
+
+div.fill {
+    flex: 1;
+    height: 100%;
+    min-height: 0;
+    /* ensures proper overflow behavior in flex containers */
+    align-self: stretch;
+}
+
+div.fill9 {
+    flex: 1;
+    margin: 10%;
+    height: calc(100% - 10%);
+    /* account for top+bottom margins */
+    min-height: 0;
+    align-self: stretch;
+}
+
+div.rounded {
+    border-radius: 10px;
+}
+
+.centered {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.centeredy {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}
+
+
+div.wide {
+    width: 100%;
+}
+
+div.high {
+    height: 100%;
+}
+
+div.top {
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+div.bottom {
+    margin-top: auto;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+div.low {
+    padding-left: auto;
+    padding-right: auto;
+    height: auto
+}
+
+div.left {
+    height: 100%;
+}
+
+div.bar {
+    width: 30vw;
+}
+
+div.rt p {
+    text-align: right !important;
+}
+div.ct p {
+    text-align: center !important;
+}
+div.lt p {
+    text-align: left !important;
+}
+div.bt p     {
+    text-align: block !important;
+}

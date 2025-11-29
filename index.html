@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Weihnachtsgame</title>
+    <script src="static/js/utils.js"></script>
+    <link rel="stylesheet" href="static/css/common.css">
+    <link rel="stylesheet" href="static/css/xmas25.css">
+
+<body class="wide">
+    <div class="top low wide blurred tinted" id="topbar">
+        <h1 id="title">Weihnachtsgame</h1>
+    </div>
+    <div class="x wide high">
+        <div class="left bar blurred tinted" id="sidebar">
+            <h2>Leaderboard</h2>
+            <div class="fill9 padded centered" id="leaderboard">
+            </div>
+        </div>
+        <div class="wide high">
+            <div id="minigame_cover">
+                <div id="door" class="rounded blurred tinted" onclick="openDoor()">
+                    <h1 id="door_label"></h1>
+                </div>
+                <div id="minigame" class="w9 h9 hidden blurred centered centeredy rounded tinted"></div>
+                <div id="result" class="w9 h9 hidden blurred centered centeredy rounded tinted">
+
+                </div>
+            </div>
+            <div id="game_over" style="display:none;">
+                <div id="finish_content" class="w9 h9 blurred ct centered centeredy rounded tinted">
+                    <h1>Gut gespielt!</h1>
+                    <p>Du hast insgesamt an {openedDoors} Aufgaben teilgenommen. Dabei hast du {points} Punkte verdient.</p>
+                    <p>{otherPlayers} andere Menschen haben mitgespielt und haben insgesamt {totalPlayerPoints} Punkte.</p>
+                    <p>Mit deinen {points} Punkten landest du auf dem</p>
+                    <h2>{position}. Platz!</h2>
+                    <p>Gratulation!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/js/xmas25.js"></script>
+    <script src="static/js/debug.js"></script>
+</body>
+
+</html>
