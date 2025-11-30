@@ -87,7 +87,7 @@ async function send_answer(silent = false, no_feedback = false) {
 <p>Du hast richtig geantwortet und erhältst <strong>${result.points}</strong> Punkte.<br>Komm morgen wieder, um das nächste Törchen zu öffnen!</p>
             `;
             }
-            else if (result.points > 0){
+            else if (result.points > 0) {
                 rtext = `
 <h1>Erledigt!</h1>
 <p>Deine Antwort wurde erfolgreich übermittelt.</p>
@@ -179,6 +179,14 @@ async function show_finish() {
     document.querySelector("#finish_content").innerHTML = a
 }
 
+async function show_upcoming() {
+    console.log("Showing info: upcoming")
+    let me = await serv({ type: "get_me" });
+    console.log(me);
+    let a = `<h1>Hallo ${me.userid}!</h1><p>Es ist noch nicht Dezember, bitte hab noch etwas Geduld...</p>`
+    document.querySelector("#finish_content").innerHTML = a
+}
+
 async function initxmas() {
     init_utils();
 
@@ -190,10 +198,10 @@ async function initxmas() {
     userid = params.userid;
     usertoken = params.usertoken;
     today = new Date().getDate();
-    if (["dev_easy","dev_hard"].includes(userid)){
-        today="debug";
+    if (["dev_easy", "dev_hard"].includes(userid)) {
+        today = "debug";
     }
- 
+
 
     if (!userid || !usertoken) {
         console.log("No authentication provided in url, using local storage");
@@ -219,75 +227,79 @@ async function initxmas() {
         "today": today
     };
 
-    // LEADERBOARD AND AUTH CHECK
-    leaderboard = await serv({
-        "type": "get_leaderboard"
-    });
+    if (new Date().getMonth == 11) {
+        // LEADERBOARD AND AUTH CHECK
+        leaderboard = await serv({
+            "type": "get_leaderboard"
+        });
 
-    if (leaderboard.error == 403) {
-        console.error("Invaid authentication");
-    }
-    else if (!leaderboard.error) {
-        console.log("Success!");
-        update_leaderboard();
-        setInterval(update_leaderboard, 10000);
-    }
-
-
-    let title = `Weihnachtsgame`;
-    let title_short = `- Weihnachtsgame`;
-    document.querySelector("#title").textContent = title;
-    document.querySelector("title").textContent = title_short;
+        if (leaderboard.error == 403) {
+            console.error("Invaid authentication");
+        }
+        else if (!leaderboard.error) {
+            console.log("Success!");
+            update_leaderboard();
+            setInterval(update_leaderboard, 10000);
+        }
 
 
-    if (today < 11 || today == "debug") {
-        document.querySelector("head").innerHTML += `<link rel="icon" href="static/img/icons/${today}.png">`;
-    }
-    else if (today < 21) {
-        document.querySelector("#title").textContent += ` - ${21 - today} Tage übrig!`;
+        let title = `Weihnachtsgame`;
+        let title_short = `- Weihnachtsgame`;
+        document.querySelector("#title").textContent = title;
+        document.querySelector("title").textContent = title_short;
+
+
+
+        if (today < 11 || today == "debug") {
+            document.querySelector("head").innerHTML += `<link rel="icon" href="static/img/icons/${today}.png">`;
+        }
+        else if (today < 21) {
+            document.querySelector("#title").textContent += ` - ${21 - today} Tage übrig!`;
+        }
+        else {
+            await show_finish()
+            document.querySelector("head").innerHTML += `<link rel="icon" href="static/img/icons/end.png">`;
+            document.querySelector("title").textContent = "Weihnachtsgame";
+            document.querySelector("#title").textContent = `Event vorbei!`;
+            document.querySelector("#minigame_cover").style.display = "none";
+            document.querySelector("#game_over").style.visibility = "visible";
+            document.querySelector("#game_over").style.display = "flex";
+        }
+
+        document.getElementById("door_label").textContent = `${today}`;
+
+        // MINIGAME LOADING
+        let minigame = await serv({
+            "type": "get_challenge"
+        });
+        console.log(minigame.content);
+        // document.querySelector("#minigame").src = `data:text/html,${encodeURIComponent(minigame.content)}`;
+        document.querySelector("#minigame").innerHTML = minigame.content;
+        let me = await serv({
+            "type": "get_me"
+        });
+        console.log(me);
+        if (me.finished_challenges.includes(today)) {
+            document.querySelector("#send_button").textContent = "Bereits erledigt";
+            document.querySelector("#send_button").disabled = true;
+            document.querySelector("#send_button").style.cursor = "not-allowed";
+        }
+
+        await delay(0.1);
+        console.log("Trying to get minigame js...");
+        let script = document.createElement('script');
+        script.src = `static/js/tag${today}/main.js`;
+        document.head.appendChild(script);
     }
     else {
-        await show_finish()
+        await show_upcoming()
         document.querySelector("head").innerHTML += `<link rel="icon" href="static/img/icons/end.png">`;
         document.querySelector("title").textContent = "Weihnachtsgame";
-        document.querySelector("#title").textContent = `Event vorbei!`;
+        document.querySelector("#title").textContent = `Event noch nicht gestartet!`;
         document.querySelector("#minigame_cover").style.display = "none";
         document.querySelector("#game_over").style.visibility = "visible";
         document.querySelector("#game_over").style.display = "flex";
     }
-
-    document.getElementById("door_label").textContent = `${today}`;
-
-
-
-
-
-
-
-
-
-    // MINIGAME LOADING
-    let minigame = await serv({
-        "type": "get_challenge"
-    });
-    console.log(minigame.content);
-    // document.querySelector("#minigame").src = `data:text/html,${encodeURIComponent(minigame.content)}`;
-    document.querySelector("#minigame").innerHTML = minigame.content;
-    let me = await serv({
-        "type": "get_me"
-    });
-    console.log(me);
-    if (me.finished_challenges.includes(today)) {
-        document.querySelector("#send_button").textContent = "Bereits erledigt";
-        document.querySelector("#send_button").disabled = true;
-        document.querySelector("#send_button").style.cursor = "not-allowed";
-    }
-
-    await delay(0.1);
-    console.log("Trying to get minigame js...");
-    let script = document.createElement('script');
-    script.src = `static/js/tag${today}/main.js`;
-    document.head.appendChild(script);
 }
 
 window.onload = initxmas;
