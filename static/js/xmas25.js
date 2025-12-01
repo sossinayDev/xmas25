@@ -227,7 +227,7 @@ async function initxmas() {
         "today": today
     };
 
-    if (new Date().getMonth == 11) {
+    if (new Date().getMonth() == 11) {
         // LEADERBOARD AND AUTH CHECK
         leaderboard = await serv({
             "type": "get_leaderboard"
