@@ -285,7 +285,7 @@ async function initxmas() {
             document.querySelector("#send_button").style.cursor = "not-allowed";
         }
 
-        await delay(0.1);
+        await delay(1);
         console.log("Trying to get minigame js...");
         let script = document.createElement('script');
         script.src = `static/js/tag${today}/main.js`;
