@@ -254,6 +254,7 @@ async function initxmas() {
             document.querySelector("head").innerHTML += `<link rel="icon" href="static/img/icons/${today}.png">`;
         }
         else if (today < 21) {
+            document.querySelector("head").innerHTML += `<link rel="icon" href="static/img/icons/${today}.png">`;
             document.querySelector("#title").textContent += ` - ${21 - today} Tage übrig!`;
         }
         else {
